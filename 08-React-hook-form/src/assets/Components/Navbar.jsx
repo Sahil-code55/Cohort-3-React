@@ -10,7 +10,9 @@ function Navbar({setToggle}) {
     <a className ="hover:text-blue-600 active:-translate-y-1" href="">Form</a>
 
     </div>
-    <button onClick={()=>{setToggle((prev)=>!prev)}} className="px-3 py-2 text-white rounded-4xl  active:translate-y-[-1px]  bg-blue-500">Create User</button>
+    <button 
+    onClick={()=>{setToggle((prev)=>!prev)}} 
+    className="px-3 py-2 text-white rounded-4xl  active:translate-y-[-1px]  bg-blue-500">Create User</button>
    </nav>
   )
 }

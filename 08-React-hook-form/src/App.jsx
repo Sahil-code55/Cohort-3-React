@@ -8,6 +8,15 @@ const App = () => {
 const [toggle, setToggle] = useState(false)
  const [user, setUser] = useState([])
  console.log(user);
+
+ const deleteUser = (id)=>{
+
+  
+  setUser(user.filter((elem)=>{
+ return elem.id !== id;  
+  })
+)
+ }
  
 
   return (
@@ -17,7 +26,11 @@ const [toggle, setToggle] = useState(false)
      <div className=" h-[90%] p-5 mt-2 rounded-xl bg-gray-300 w-full">
     {
       user.map((elem)=>{
-        return <Card user={elem}/>
+        return <Card user={elem} 
+        deleteUser={deleteUser}
+        key ={elem.id} 
+        id ={elem.id} 
+        setToggle={setToggle}/>
       })
     }
      </div>

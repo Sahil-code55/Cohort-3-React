@@ -4,10 +4,16 @@ import { useForm } from 'react-hook-form';
 const Form = ({setUser,setToggle}) => {
   
     let {register,handleSubmit,reset,formState:{errors}}=useForm();
+   
 
     let formSubmit =(data)=>{
-      setUser(prev=>[...prev  ,data])
+      const newUser ={
+        id : Date.now(),
+        ...data,
+      }
+      setUser(prev=>[...prev  ,newUser])
     reset();
+    setToggle((prev)=>!prev)
     }
 
   return (
@@ -43,7 +49,10 @@ const Form = ({setUser,setToggle}) => {
       type="url" 
       placeholder=" Enter Image Url"
        />
-    <button  className="bg-blue-500 rounded-4xl py-2 px-4 text-white">Add User</button>
+    <button 
+    type="submit"
+     className="bg-blue-500 rounded-4xl py-2 px-4 text-white"
+     >Add User</button>
       </form>
     </div>
   )

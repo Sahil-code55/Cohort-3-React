@@ -6,24 +6,32 @@ import Form from "./assets/Components/Form"
 const App = () => {
 
 const [toggle, setToggle] = useState(false)
- const [user, setUser] = useState([])
- console.log(user);
+ const [user, setUser] = useState(()=>{
+ 
+  
+ return JSON.parse(localStorage.getItem("users")) || [];
+ })
+  console.log(user);
 
  const deleteUser = (id)=>{
-
-  
-  setUser(user.filter((elem)=>{
+ let filterUser = user.filter((elem)=>{
  return elem.id !== id;  
   })
-)
+
+  setUser(filterUser)
+  localStorage.setItem("users",JSON.stringify(filterUser))
  }
  
 
   return (
     <div className = "h-screen w-full bg-black p-2">
     <Navbar setToggle= {setToggle}/>
-    {toggle?  <Form setToggle= {setToggle} setUser= { setUser }/>:
-     <div className=" h-[90%] p-5 mt-2 rounded-xl bg-gray-300 w-full">
+    {toggle?  <Form
+     setToggle= {setToggle} 
+    setUser= { setUser }
+    user = {user}
+    />:
+     <div className=" h-[90%] flex flex-wrap gap-5 p-5 mt-2 rounded-xl bg-gray-300 w-full">
     {
       user.map((elem)=>{
         return <Card user={elem} 

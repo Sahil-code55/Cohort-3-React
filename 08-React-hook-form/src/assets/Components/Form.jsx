@@ -1,19 +1,30 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
 
-const Form = ({setUser,setToggle,user}) => {
+const Form = ({setUser,setToggle,user,updateUser}) => {
   
-    let {register,handleSubmit,reset,formState:{errors}}=useForm();
+ let {register,handleSubmit,reset,formState:{errors}}=useForm({
+  defaultValues:updateUser,
+ });
    
-
     let formSubmit =(data)=>{
       const newUser ={
         id : Date.now(),
         ...data,
       }
+    if(updateUser){
+     setUser((prev)=>{
+      return prev.map((val)=>{
+         return val.id === updateUser.id ? {...newUser}: val;
+        
+      })
+     })
+    }
+      else{
       let arr = [...user ,newUser]
       setUser(arr)
       localStorage.setItem("users",JSON.stringify(arr));
+    }
     reset();
     setToggle((prev)=>!prev)
     }
@@ -53,7 +64,8 @@ const Form = ({setUser,setToggle,user}) => {
        />
     <button 
     type="submit"
-     className="bg-blue-500 rounded-4xl py-2 px-4 text-white"
+   
+     className=" bg-blue-500 rounded-4xl py-2 px-4 text-white"
      >Add User</button>
       </form>
     </div>
